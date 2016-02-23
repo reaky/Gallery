@@ -1,0 +1,13 @@
+#Reaky-Gallery {
+	width: 100%;
+}
+#Reaky-Gallery img {
+	width: 100px;
+	height: auto;
+	display: block;
+	float: left;
+	margin: 0 5px 5px 0;
+}
+#Reaky-Gallery figcaption {
+	display: none;
+}
