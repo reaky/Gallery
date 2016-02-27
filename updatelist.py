@@ -8,7 +8,7 @@ for f in files:
     print(dir + os.sep + f)
     im = Image.open(dir + os.sep + f)
     print(im.format, im.size, im.mode)
-    listdict.append({'src': 'photos/'+f, 'w': im.size[0], 'h': im.size[1]})
+    listdict.insert(0, {'src': 'photos/'+f, 'w': im.size[0]*0.6, 'h': im.size[1]*0.6})
 
 print(json.dumps(listdict))
 fileHandle = open ( 'list.json', 'w' )

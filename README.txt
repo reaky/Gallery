@@ -1,3 +1,3 @@
-A Pen created at CodePen.io. You can find this one at http://codepen.io/dimsemenov/pen/ZYbPJM.
+Reaky's Family Gallery with photoswipe lib support.
 
  
