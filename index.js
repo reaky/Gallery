@@ -2,6 +2,9 @@ var openPhotoSwipe = function(items, pid) {
 	var pswpElement = document.querySelectorAll('.pswp')[0];
 
 	items = arguments[0];
+	for (var i=0;i<items.length;i++){
+		items[i].src = "http://7xrst7.com1.z0.glb.clouddn.com/" + items[i].src
+	};
 	pid = arguments[1] || 0;
 	// define options (if needed)
 	var options = {
@@ -17,7 +20,7 @@ var openPhotoSwipe = function(items, pid) {
 
 $(document).ready(function(){
 	$.ajax({
-		url: 'list.json',
+		url: 'http://7xrst7.com1.z0.glb.clouddn.com/list.json',
 		dataType: "json",
 		success: function (items) {
 			console.log("load meta.json finished");
