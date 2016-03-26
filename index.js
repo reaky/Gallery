@@ -17,7 +17,7 @@ var openPhotoSwipe = function(items, pid) {
 
 $(document).ready(function(){
 	$.ajax({
-		url: 'http://7xrst7.com1.z0.glb.clouddn.com/list.json',
+		url: 'http://7xrst7.com1.z0.glb.clouddn.com/list.json?attname=',
 		dataType: "json",
 		success: function (items) {
 			console.log("load meta.json finished");
