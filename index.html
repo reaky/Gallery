@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Reaky Family Gallery</title>
 
+<link rel="stylesheet" href="style.css">
 <!-- Core CSS file -->
 <link rel="stylesheet" href="photoswipe/photoswipe.css"> 
 <!-- Skin CSS file (styling of UI - buttons, caption, etc.)
@@ -12,10 +13,11 @@
      - preloader.gif (for browsers that do not support CSS animations) -->
 <link rel="stylesheet" href="photoswipe/default-skin/default-skin.css"> 
 
-<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="Reaky-Gallery"> Reaky's Family Gallery </div>
+<div id="Header"> Reaky's Family Gallery </div>
+<div id="Wrapper">
+<div id="Reaky-Gallery"></div>
 
 <!-- Root element of PhotoSwipe. Must have class pswp. -->
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
@@ -82,11 +84,19 @@
         </div>
 
 </div>
+</div>
+<button id="loadmore">Load More...</button>
 <!-- Core JS file -->
 <script src="photoswipe/photoswipe.min.js"></script> 
 <!-- UI JS file -->
 <script src="photoswipe/photoswipe-ui-default.min.js"></script> 
-<script src="http://code.jquery.com/jquery.min.js"></script>
+<!--
+<script src="jquery-1.7.2.min.js"></script>
+<script src="http://lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js"></script>
+<script src="jquery.scrollTo.js"></script>
+-->
+<script src="jquery-3.0.0.min.js"></script>
+<script src="exif.js"></script>
 <script src="index.js"></script>
 </body>
 </html>
