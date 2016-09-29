@@ -6,6 +6,7 @@ from PIL import Image
 from PIL import ImageFile
 import pyexiv2
 from pyinotify import WatchManager, Notifier, ProcessEvent, IN_DELETE, IN_CREATE, IN_MODIFY, IN_CLOSE_WRITE
+from qiniu_sync import upload_file, delete_file
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 photolist = []
@@ -62,7 +63,7 @@ def make_thumb(path, size=200):
         print("%s x %s"%(metadata_thumb['Exif.Photo.PixelXDimension'].value, metadata_thumb['Exif.Photo.PixelYDimension'].value))
     return "success"
 
-def update_list(directory='./photos', ACTION='init', item=''):
+def update_list(directory='/home/www/Gallery/photos', ACTION='init', item=''):
     if ACTION == 'init':
         #files = os.listdir(directory)  
         #files = glob.glob(os.path.join(directory, '*.jpg'))  
@@ -74,13 +75,35 @@ def update_list(directory='./photos', ACTION='init', item=''):
                 im = Image.open(os.path.join(directory, f))
                 print(im.format, im.size, im.mode)
                 photolist.insert(0, f)
+
+                path = os.path.join(directory, f)
+                base, ext = os.path.splitext(os.path.basename(path))
+                path_thumb = os.path.join(os.path.dirname(path), 'thumb', '%s_thumb%s'%(base, ext))
+                print(path_thumb)
+                print(os.path.basename(path_thumb))
+                upload_file(bucket_name='reaky', localfile=path, key=os.path.basename(path))
+                upload_file(bucket_name='reaky', localfile=path_thumb, key=os.path.basename(path_thumb))
     elif ACTION == 'add':
         if "success" == make_thumb(os.path.join(directory, item)):
             im = Image.open(os.path.join(directory, item))
             print(im.format, im.size, im.mode)
             photolist.insert(0, item)
-    elif CTION == 'delete':
+
+            path = os.path.join(directory, item)
+            base, ext = os.path.splitext(os.path.basename(path))
+            path_thumb = os.path.join(os.path.dirname(path), 'thumb', '%s_thumb%s'%(base, ext))
+            print(path_thumb)
+            print(os.path.basename(path_thumb))
+            upload_file(bucket_name='reaky', localfile=path, key=os.path.basename(path))
+            upload_file(bucket_name='reaky', localfile=path_thumb, key=os.path.basename(path_thumb))
+    elif ACTION == 'delete':
         photolist.remove(item)
+
+        path = os.path.join(directory, item)
+        base, ext = os.path.splitext(os.path.basename(path))
+        path_thumb = os.path.join(os.path.dirname(path), 'thumb', '%s_thumb%s'%(base, ext))
+        delete_file(bucket_name='reaky', key=os.path.basename(path))
+        delete_file(bucket_name='reaky', key=os.path.basename(path_thumb))
     else:
         pass
 
@@ -89,7 +112,7 @@ def update_list(directory='./photos', ACTION='init', item=''):
     fileHandle.write (json.dumps(photolist))  
     fileHandle.close()
 
-def monitor_photos(directory='./photos'):
+def monitor_photos(directory='/home/www/Gallery/photos'):
     lastmodifytime = 0
     wm = WatchManager() 
     # watched events
