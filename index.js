@@ -1,6 +1,7 @@
 var lists=[], items=[];
 var starthnum = Math.ceil($(window).height()/206);
 var startvnum = Math.floor($(window).width()/206);
+var loadsize = 0;
 console.log(startvnum+'/'+starthnum);
 
 function baseName(str) {
@@ -73,7 +74,9 @@ $(document).ready(function(){
 		success: function (data) {
 			console.log("load list.json finished");
 			lists = data;
-			for (var i = 0; i < starthnum*startvnum; i++) { 
+			loadsize = Math.min(lists.length, starthnum*startvnum)
+			console.log("loadsize: " + loadsize);
+			for (var i = 0; i < loadsize; i++) { 
 				items.push({
 					//src: 'photos/'+lists[i], 
 					src: '//7xrst7.com1.z0.glb.clouddn.com/'+lists[i], 
@@ -118,6 +121,10 @@ $(document).ready(function(){
 	});
 	$("#loadmore").click(function(){
 		var len = $("#Reaky-Gallery").children().length;
+		if (len+5 > lists.length) {
+			console.log("no more")
+			return
+		}
 		for (var i = len; i < len+5; i++) { 
 				items.push({
 					//src: 'photos/'+lists[i], 
@@ -149,7 +156,7 @@ $(document).ready(function(){
 	});
 	$(window).scroll(function(){
 		var len = $("#Reaky-Gallery").children().length;
-		if(len < starthnum*startvnum-1) {
+		if(len < loadsize-1) {
 			console.log("wait load finish");
 			return
 		}
