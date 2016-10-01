@@ -17,6 +17,7 @@ body {
 	text-align: center;
 }
 #Reaky-Gallery {
+  width: 848px;
 	height: 100%;
 	margin: 0px auto 0px auto;
 }
@@ -61,4 +62,6 @@ body {
   width: 100%;
   max-width: 740px;
   margin: 12px auto;
+}
+n: 12px auto;
 }
