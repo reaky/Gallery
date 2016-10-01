@@ -79,8 +79,8 @@ $(document).ready(function(){
 				items.push({
 					//src: 'photos/'+lists[i], 
 					src: '//7xrst7.com1.z0.glb.clouddn.com/'+lists[i], 
-					w: 800,
-					h: 600
+					w: 10,
+					h: 10
 				});
 				//$('<a id='+i+' href='+encodeURIComponent('photos/'+lists[i])+'><img src='+encodeURIComponent('photos/thumb/'+lists[i].split(".")[0]+'_thumb.'+lists[i].split(".")[1])+' alt='+lists[i]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
 				//$('<a id='+i+' href=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i])+'><img src=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i].split(".")[0]+'_thumb.'+lists[i].split(".")[1])+' alt='+lists[i]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
@@ -91,22 +91,21 @@ $(document).ready(function(){
 				////	console.log($(e.target).parent().attr('id'));
 				////	return false;
 				//});
-				$('<a id='+i+' href=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i])+'><img src=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i].split(".")[0]+'_thumb.'+lists[i].split(".")[1])+' alt='+lists[i]+' /></a>').appendTo("#Reaky-Gallery")
+				$('<a id='+i+'><img src=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i].split(".")[0]+'_thumb.'+lists[i].split(".")[1])+' alt='+lists[i]+' /></a>').appendTo("#Reaky-Gallery")
 				console.log('Insert finished: '+i);
-				//console.log($('#Reaky-Gallery > #'+i+' > img')[0]);
-				//console.log($('#Reaky-Gallery > a:first> img:last')[0]);
 				EXIF.getData($('#Reaky-Gallery > #'+i+' > img')[0], function(){
-					var curr = $(this).parent().attr('id');
+					var cur = $(this).parent().attr('id');
 					console.log('EXIF: '+EXIF.getTag(this, "PixelXDimension")+','+EXIF.getTag(this, "PixelYDimension"));
-					items[curr].w = EXIF.getTag(this, "PixelXDimension");
-					items[curr].h = EXIF.getTag(this, "PixelYDimension");
-				});
-				console.log('Bind click for: '+i);
-				$('#Reaky-Gallery > #'+i).click(function(e){
-					var cur = parseInt($(this).attr('id'));
-					console.log('Clicked: '+cur);
-					openPhotoSwipe(items, cur);
-					return false;
+					items[cur].w = EXIF.getTag(this, "PixelXDimension");
+					items[cur].h = EXIF.getTag(this, "PixelYDimension");
+
+					console.log('Bind click for: '+cur);
+					$(this).parent().click(function(e){
+						var cur = parseInt($(this).attr('id'));
+						console.log('Clicked: '+cur);
+						openPhotoSwipe(items, cur);
+						return false;
+					});
 				});
 			}
 			//$('#Reaky-Gallery > a').each(function() {
@@ -132,23 +131,25 @@ $(document).ready(function(){
 				items.push({
 					//src: 'photos/'+lists[i], 
 					src: '//7xrst7.com1.z0.glb.clouddn.com/'+lists[i], 
-					w: 800,
-					h: 600 
+					w: 10,
+					h: 10 
 				});
 				//$('<a id='+i+' href='+encodeURIComponent('photos/'+lists[i])+'><img src='+encodeURIComponent('photos/thumb/'+lists[i].split(".")[0]+'_thumb.'+lists[i].split(".")[1])+' alt='+lists[i]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
-				$('<a id='+i+' href=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i])+'><img src=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i].split(".")[0]+'_thumb.'+lists[i].split(".")[1])+' alt='+lists[i]+' /></a>').appendTo("#Reaky-Gallery")
+				$('<a id='+i+'><img src=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i].split(".")[0]+'_thumb.'+lists[i].split(".")[1])+' alt='+lists[i]+' /></a>').appendTo("#Reaky-Gallery")
 				console.log('Insert finished: '+i);
 				EXIF.getData($('#Reaky-Gallery > #'+i+' > img')[0], function(){
 					var cur = $(this).parent().attr('id');
 					console.log('EXIF: '+EXIF.getTag(this, "PixelXDimension")+','+EXIF.getTag(this, "PixelYDimension"));
 					items[cur].w = EXIF.getTag(this, "PixelXDimension");
 					items[cur].h = EXIF.getTag(this, "PixelYDimension");
-				});
-				$('#Reaky-Gallery > #'+i).click(function(e){
-					var cur = parseInt($(this).attr('id'));
+
 					console.log('Bind click for: '+cur);
-					openPhotoSwipe(items, cur);
-					return false;
+					$(this).parent().click(function(e){
+						var cur = parseInt($(this).attr('id'));
+						console.log('Bind click for: '+cur);
+						openPhotoSwipe(items, cur);
+						return false;
+					});
 				});
 		}
 	});
