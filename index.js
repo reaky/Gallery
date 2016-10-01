@@ -35,7 +35,7 @@ var openPhotoSwipe = function(items, pid) {
 	var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
 	gallery.listen('destroy', function() {
 		var cur = gallery.getCurrentIndex();
-		console.log(cur);
+		console.log('destroy: '+cur);
 		//$.scrollTo('#'+gallery.getCurrentIndex());
 		//$.scrollTo('#'+cur,500);
 		$('#'+cur+' > img').animate({opacity: 0}, speed="normal");
@@ -48,15 +48,14 @@ var openPhotoSwipe = function(items, pid) {
 	gallery.listen('imageLoadComplete', function(index, item) { 
 		// index - index of a slide that was loaded
 		// item - slide object
-		console.log("imageLoadComplete"+index);
+		console.log("imageLoadComplete: "+index);
 	});
 	gallery.listen('gettingData', function(index, item) {
 		// index - index of a slide that was loaded
 		// item - slide object
-		console.log("gettingData"+index);
+		console.log("gettingData: "+index);
 	});
 	gallery.listen('beforeChange', function() {
-		console.log("beforeChange");
 		var cur = gallery.getCurrentIndex();
 		var len = $("#Reaky-Gallery").children().length;
 		console.log(cur+"/"+len);
@@ -84,26 +83,30 @@ $(document).ready(function(){
 					h: 600
 				});
 				//$('<a id='+i+' href='+encodeURIComponent('photos/'+lists[i])+'><img src='+encodeURIComponent('photos/thumb/'+lists[i].split(".")[0]+'_thumb.'+lists[i].split(".")[1])+' alt='+lists[i]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
-				$('<a id='+i+' href=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i])+'><img src=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i].split(".")[0]+'_thumb.'+lists[i].split(".")[1])+' alt='+lists[i]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
-					var cur = parseInt($(this).attr('id'));
-					openPhotoSwipe(items, cur);
-					return false;
-				//	openPhotoSwipe(items, $(e.target).parent().attr('id'));
-				//	console.log($(e.target).parent().attr('id'));
+				//$('<a id='+i+' href=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i])+'><img src=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i].split(".")[0]+'_thumb.'+lists[i].split(".")[1])+' alt='+lists[i]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
+				//	var cur = parseInt($(this).attr('id'));
+				//	openPhotoSwipe(items, cur);
 				//	return false;
-				});
-				console.log('insert finished'+i);
-				console.log($('#Reaky-Gallery > #'+i+' > img')[0]);
+				////	openPhotoSwipe(items, $(e.target).parent().attr('id'));
+				////	console.log($(e.target).parent().attr('id'));
+				////	return false;
+				//});
+				$('<a id='+i+' href=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i])+'><img src=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i].split(".")[0]+'_thumb.'+lists[i].split(".")[1])+' alt='+lists[i]+' /></a>').appendTo("#Reaky-Gallery")
+				console.log('Insert finished: '+i);
+				//console.log($('#Reaky-Gallery > #'+i+' > img')[0]);
 				//console.log($('#Reaky-Gallery > a:first> img:last')[0]);
 				EXIF.getData($('#Reaky-Gallery > #'+i+' > img')[0], function(){
-					console.log("in EXIF.getData");
-					console.log(this);
-					console.log($(this).parent().attr('id'));
-					//console.log(EXIF.pretty(this));
-					console.log(EXIF.getTag(this, "PixelXDimension"));
-					console.log(EXIF.getTag(this, "PixelYDimension"));
-					items[$(this).parent().attr('id')].w = EXIF.getTag(this, "PixelXDimension");
-					items[$(this).parent().attr('id')].h = EXIF.getTag(this, "PixelYDimension") 
+					var curr = $(this).parent().attr('id');
+					console.log('EXIF: '+EXIF.getTag(this, "PixelXDimension")+','+EXIF.getTag(this, "PixelYDimension"));
+					items[curr].w = EXIF.getTag(this, "PixelXDimension");
+					items[curr].h = EXIF.getTag(this, "PixelYDimension");
+				});
+				console.log('Bind click for: '+i);
+				$('#Reaky-Gallery > #'+i).click(function(e){
+					var cur = parseInt($(this).attr('id'));
+					console.log('Clicked: '+cur);
+					openPhotoSwipe(items, cur);
+					return false;
 				});
 			}
 			//$('#Reaky-Gallery > a').each(function() {
@@ -133,24 +136,19 @@ $(document).ready(function(){
 					h: 600 
 				});
 				//$('<a id='+i+' href='+encodeURIComponent('photos/'+lists[i])+'><img src='+encodeURIComponent('photos/thumb/'+lists[i].split(".")[0]+'_thumb.'+lists[i].split(".")[1])+' alt='+lists[i]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
-				$('<a id='+i+' href=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i])+'><img src=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i].split(".")[0]+'_thumb.'+lists[i].split(".")[1])+' alt='+lists[i]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
-					//console.log($(e.target).parent().attr('id'));
-					//console.log($(this).attr('id'));
+				$('<a id='+i+' href=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i])+'><img src=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i].split(".")[0]+'_thumb.'+lists[i].split(".")[1])+' alt='+lists[i]+' /></a>').appendTo("#Reaky-Gallery")
+				console.log('Insert finished: '+i);
+				EXIF.getData($('#Reaky-Gallery > #'+i+' > img')[0], function(){
+					var cur = $(this).parent().attr('id');
+					console.log('EXIF: '+EXIF.getTag(this, "PixelXDimension")+','+EXIF.getTag(this, "PixelYDimension"));
+					items[cur].w = EXIF.getTag(this, "PixelXDimension");
+					items[cur].h = EXIF.getTag(this, "PixelYDimension");
+				});
+				$('#Reaky-Gallery > #'+i).click(function(e){
 					var cur = parseInt($(this).attr('id'));
+					console.log('Bind click for: '+cur);
 					openPhotoSwipe(items, cur);
 					return false;
-				});
-				console.log('insert finished'+i);
-				console.log($('#Reaky-Gallery > #'+i+' > img')[0]);
-				EXIF.getData($('#Reaky-Gallery > #'+i+' > img')[0], function(){
-					var index = $(this).parent().attr('id');
-					console.log(this);
-					console.log(index);
-					//console.log(EXIF.pretty(this));
-					console.log(EXIF.getTag(this, "PixelXDimension"));
-					console.log(EXIF.getTag(this, "PixelYDimension"));
-					items[index].w = EXIF.getTag(this, "PixelXDimension");
-					items[index].h = EXIF.getTag(this, "PixelYDimension") 
 				});
 		}
 	});
