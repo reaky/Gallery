@@ -100,7 +100,7 @@ $(document).ready(function(){
 					items[cur].h = EXIF.getTag(this, "PixelYDimension");
 
 					console.log('Bind click for: '+cur);
-					$(this).parent().click(function(e){
+					$('#Reaky-Gallery > #'+cur).click(function(e){
 						var cur = parseInt($(this).attr('id'));
 						console.log('Clicked: '+cur);
 						openPhotoSwipe(items, cur);
