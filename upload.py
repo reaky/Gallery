@@ -26,7 +26,7 @@ def do_upload():
         if ext not in ('.jpg', '.JPG', '.jpeg', '.JPEG', '.bmp', '.png', '.PNG', '.gif', '.GIF'):
             return 'File extension not allowed.'
         #save_path = get_save_path_for_category(category)
-        save_path = "/home/reaky/"
+        save_path = "/mnt/photos/"
         upload.save(save_path, overwrite=True) # appends upload.filename automatically
     return 'OK'
 
