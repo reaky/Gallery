@@ -71,7 +71,7 @@ $(document).ready(function(){
 		url: 'list.json',
 		dataType: "json",
 		success: function (data) {
-			console.log("load list.json finished");
+			console.log("load list.json finished: "+data.length);
 			lists = data;
 			loadsize = Math.min(lists.length, starthnum*startvnum)
 			console.log("loadsize: " + loadsize);
