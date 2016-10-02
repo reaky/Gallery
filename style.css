@@ -5,21 +5,28 @@ body {
 #Header {
 	background: #EEBF02;
 	height: 30px;
-	padding: 0;
-	margin-bottom: 12px;
 	border-bottom: 1px solid #3c3c3c;
 	text-align: center;
 	line-height: 30px;
 	font-size: 16px;
 	font-weight: bold;
 }
-#Wrapper {
-	text-align: center;
+#upload {
+	float: right;
+	width 80px;
+	font-size: 15px;
+	margin: 10px 10px 0px 0px;
+}
+#upload form input[type="file"] {
+	width: 70px;
+} 
+#upload form input[type="submit"] {
+	width: 65px;
 }
 #Reaky-Gallery {
-  width: 848px;
+	width: 848px;
 	height: 100%;
-	margin: 0px auto 0px auto;
+	margin: 10px auto 0px auto;
 }
 #Reaky-Gallery img {
 	width: auto;
