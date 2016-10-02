@@ -17,6 +17,9 @@ body {
 	font-size: 15px;
 	margin: 10px 10px 0px 0px;
 }
+#upload form  {
+	display: None;
+}
 #upload form input[type="file"] {
 	width: 70px;
 } 
