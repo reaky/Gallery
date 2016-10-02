@@ -169,6 +169,7 @@ $(document).ready(function(){
 			data: new FormData($('#upload-form')[0]),
 			success: function(data) {
 				console.log("Upload successful!");
+				alert("Upload successful!");
 				$.ajax({
 					url: 'list.json',
 					dataType: "json",
