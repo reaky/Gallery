@@ -4,24 +4,24 @@
 <meta charset="UTF-8">
 <title>Reaky Family Gallery</title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="uploadifive.css">
 <!-- Core CSS file -->
-<link rel="stylesheet" href="//7xrst7.com1.z0.glb.clouddn.com/photoswipe.css"> 
+<link rel="stylesheet" type="text/css" href="//7xrst7.com1.z0.glb.clouddn.com/photoswipe.css"> 
 <!-- Skin CSS file (styling of UI - buttons, caption, etc.)
      In the folder of skin CSS file there are also:
      - .png and .svg icons sprite, 
      - preloader.gif (for browsers that do not support CSS animations) -->
-<link rel="stylesheet" href="//7xrst7.com1.z0.glb.clouddn.com/default-skin/default-skin.css"> 
+<link rel="stylesheet" type="text/css" href="//7xrst7.com1.z0.glb.clouddn.com/default-skin/default-skin.css"> 
 
 </head>
 <body>
 <div id="Header">Reaky's Family Gallery</div>
-<div id="upload">
+<div id="upload-div">
 	<form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
-	<input type="file" name="upload" multiple />
-	<input type="submit" value="Upload" />
+	<input type="file" name="upload" id="upload" multiple />
+	<div id="queue"></div>
 	</form>
-	<a href="/upload"><button>Upload</button></a>
 </div>
 <div id="Wrapper">
 <div id="Reaky-Gallery"></div>
@@ -94,14 +94,15 @@
 </div>
 <button id="loadmore">Load More...</button>
 <!-- Core JS file -->
-<script src="//7xrst7.com1.z0.glb.clouddn.com/photoswipe.min.js"></script> 
+<script type="text/javascript" src="//7xrst7.com1.z0.glb.clouddn.com/photoswipe.min.js"></script> 
 <!-- UI JS file -->
-<script src="//7xrst7.com1.z0.glb.clouddn.com/photoswipe-ui-default.min.js"></script> 
+<script type="text/javascript" src="//7xrst7.com1.z0.glb.clouddn.com/photoswipe-ui-default.min.js"></script> 
 <!--
 <script src="jquery.scrollTo.js"></script>
 <script src="//lib.sinaapp.com/js/jquery/3.1.0/jquery-3.1.0.min.js"></script>
 -->
-<script src="//7xrst7.com1.z0.glb.clouddn.com/jquery-3.1.0.min.js"></script>
-<script src="index.js"></script>
+<script type="text/javascript" src="//7xrst7.com1.z0.glb.clouddn.com/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="jquery.uploadifive.min.js"></script>
+<script type="text/javascript" src="index.js"></script>
 </body>
 </html>

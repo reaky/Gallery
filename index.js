@@ -159,7 +159,7 @@ $(document).ready(function(){
 			$("#loadmore").trigger("click");
 		}
 	});
-	$('#upload-form').submit(function(e){
+	$('#upload-form-old').submit(function(e){
 		console.log('upload ajax submit');
 		$.ajax({
 			url: "/upload",
@@ -209,5 +209,13 @@ $(document).ready(function(){
 			processData: false
 		});
 		e.preventDefault();
+	});
+	$('#upload').uploadifive({
+		'auto' : true,
+		'fileObjName': 'upload',
+		'queueID': 'queue',
+		'buttonText': 'Upload',
+		'uploadScript' : '/upload',
+		'onUploadComplete': function(file, data) { console.log('Feedback: '+data); }
 	});
 });
