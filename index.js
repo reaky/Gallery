@@ -67,27 +67,30 @@ var openPhotoSwipe = function(items, pid) {
 };
 
 $(document).ready(function(){
+	$.refresh_gallery = function(start, end) {
+		for (var i = 0; i < loadsize; i++) { 
+			items.push({
+				src: '//7xrst7.com1.z0.glb.clouddn.com/'+lists[i][0], 
+				w: lists[i][1],
+				h: lists[i][2]
+			});
+			$('<a id='+i+' href=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i][0])+'><img src=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i][0].split(".")[0]+'_thumb.'+lists[i][0].split(".")[1])+' alt='+lists[i][0]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
+				var cur = parseInt($(this).attr('id'));
+				openPhotoSwipe(items, cur);
+				return false;
+			});
+		}
+	};
 	$.ajax({
 		url: 'list.json',
 		dataType: "json",
 		success: function (data) {
 			lists = data;
 			console.log("load list.json finished: "+lists.length);
-			loadsize = Math.min(lists.length, starthnum*startvnum)
+			loadsize = Math.min(lists.length, starthnum*startvnum);
 			console.log("loadsize: " + loadsize);
-			$("#Reaky-Gallery").empty()
-			for (var i = 0; i < loadsize; i++) { 
-				items.push({
-					src: '//7xrst7.com1.z0.glb.clouddn.com/'+lists[i][0], 
-					w: lists[i][1],
-					h: lists[i][2]
-				});
-				$('<a id='+i+' href=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i][0])+'><img src=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i][0].split(".")[0]+'_thumb.'+lists[i][0].split(".")[1])+' alt='+lists[i][0]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
-					var cur = parseInt($(this).attr('id'));
-					openPhotoSwipe(items, cur);
-					return false;
-				});
-			}
+			$("#Reaky-Gallery").empty();
+			$.refresh_gallery(0, loadsize);
 		},
 		error: function (err) {
 			console.log("load list.json failed");
@@ -102,18 +105,7 @@ $(document).ready(function(){
 		}
 		loadsize = Math.min(lists.length, len+5)
 		console.log("loadsize: " + loadsize);
-		for (var i = len; i < loadsize; i++) { 
-				items.push({
-					src: '//7xrst7.com1.z0.glb.clouddn.com/'+lists[i][0], 
-					w: lists[i][1],
-					h: lists[i][2]
-				});
-				$('<a id='+i+' href=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i][0])+'><img src=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i][0].split(".")[0]+'_thumb.'+lists[i][0].split(".")[1])+' alt='+lists[i][0]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
-					var cur = parseInt($(this).attr('id'));
-					openPhotoSwipe(items, cur);
-					return false;
-				});
-		}
+		$.refresh_gallery(len, loadsize);
 	});
 	$("#Header").dblclick(function(){
 		var len = $("#Reaky-Gallery").children().length;
@@ -134,18 +126,7 @@ $(document).ready(function(){
 		loadsize = Math.min(lists.length, starthnum*startvnum)
 		console.log("loadsize: " + loadsize);
 		$("#Reaky-Gallery").empty()
-		for (var i = 0; i < loadsize; i++) { 
-			items.push({
-				src: '//7xrst7.com1.z0.glb.clouddn.com/'+lists[i][0], 
-				w: lists[i][1],
-				h: lists[i][2]
-			});
-			$('<a id='+i+' href=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i][0])+'><img src=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i][0].split(".")[0]+'_thumb.'+lists[i][0].split(".")[1])+' alt='+lists[i][0]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
-				var cur = parseInt($(this).attr('id'));
-				openPhotoSwipe(items, cur);
-				return false;
-			});
-		}
+		$.refresh_gallery(0, loadsize);
 	});
 	$(window).scroll(function(){
 		var len = $("#Reaky-Gallery").children().length;
@@ -159,65 +140,36 @@ $(document).ready(function(){
 			$("#loadmore").trigger("click");
 		}
 	});
-	$('#upload-form-old').submit(function(e){
-		console.log('upload ajax submit');
-		$.ajax({
-			url: "/upload",
-			type: "POST",
-			//data: $('#upload-form').serialize(),
-			//data: new FormData(this),
-			data: new FormData($('#upload-form')[0]),
-			success: function(data) {
-				console.log("Upload successful!");
-				alert("Upload successful!");
-				setTimeout(function() {
-					$.ajax({
-						url: 'list.json',
-						dataType: "json",
-						success: function (data) {
-							lists = data;
-							items = [];
-							console.log("reload list.json finished: "+lists.length);
-							loadsize = Math.min(lists.length, starthnum*startvnum)
-							console.log("loadsize: " + loadsize);
-							$("#Reaky-Gallery").empty()
-							for (var i = 0; i < loadsize; i++) { 
-								items.push({
-									src: '//7xrst7.com1.z0.glb.clouddn.com/'+lists[i][0], 
-									w: lists[i][1],
-									h: lists[i][2]
-								});
-								$('<a id='+i+' href=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i][0])+'><img src=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i][0].split(".")[0]+'_thumb.'+lists[i][0].split(".")[1])+' alt='+lists[i][0]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
-									var cur = parseInt($(this).attr('id'));
-									openPhotoSwipe(items, cur);
-									return false;
-								});
-							}
-						},
-						error: function (err) {
-							console.log("reload list.json failed");
-							console.log(err);
-						}
-					});
-				},1000*60);
-			},
-			error: function(request) {
-				alert("something error happeded!");
-			},
-			cache: false,
-			contentType: false,
-			processData: false
-		});
-		e.preventDefault();
-	});
 	$('#upload').uploadifive({
 		'auto' : true,
 		'fileObjName': 'upload',
-		'fileType': 'image/*',
+		'fileSizeLimit': '10MB',
 		'removeCompleted': true,
 		'queueID': 'queue',
 		'buttonText': 'Upload',
 		'uploadScript' : '/upload',
-		'onUploadComplete': function(file, data) { console.log('Feedback: '+data); }
+		//'onUploadComplete': function(file, data) { console.log('Feedback: '+data); }
+		'onUploadComplete': function(file, data) {
+			console.log("Upload successful!");
+			setTimeout(function() {
+				$.ajax({
+					url: 'list.json',
+					dataType: "json",
+					success: function (data) {
+						lists = data;
+						items = [];
+						console.log("reload list.json finished: "+lists.length);
+						loadsize = Math.min(lists.length, starthnum*startvnum);
+						console.log("loadsize: " + loadsize);
+						$("#Reaky-Gallery").empty();
+						$.refresh_gallery(0, loadsize);
+					},
+					error: function (err) {
+						console.log("reload list.json failed");
+						console.log(err);
+					}
+				});
+			},1000*10);
+		}
 	});
 });
