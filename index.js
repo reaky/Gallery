@@ -213,6 +213,8 @@ $(document).ready(function(){
 	$('#upload').uploadifive({
 		'auto' : true,
 		'fileObjName': 'upload',
+		'fileType': 'image/*',
+		'removeCompleted': true,
 		'queueID': 'queue',
 		'buttonText': 'Upload',
 		'uploadScript' : '/upload',
