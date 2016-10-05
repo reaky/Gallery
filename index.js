@@ -154,7 +154,7 @@ $(document).ready(function(){
 			return
 		}
 		//alert($(window).scrollTop()+"/"+$(document).height()+"/"+$(window).height());
-		if($(window).scrollTop() >= $(document).height() - $(window).height()){
+		if($(window).scrollTop()+1 >= $(document).height() - $(window).height()){
 			console.log("scrolled to end!");
 			$("#loadmore").trigger("click");
 		}
