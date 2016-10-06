@@ -68,7 +68,7 @@ var openPhotoSwipe = function(items, pid) {
 
 $(document).ready(function(){
 	$.refresh_gallery = function(start, end) {
-		for (var i = 0; i < loadsize; i++) { 
+		for (var i = start; i < end; i++) { 
 			items.push({
 				src: '//7xrst7.com1.z0.glb.clouddn.com/'+lists[i][0], 
 				w: lists[i][1],
