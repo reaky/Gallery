@@ -103,7 +103,7 @@ $(document).ready(function(){
 			console.log("no more")
 			return
 		}
-		loadsize = Math.min(lists.length, len+5)
+		loadsize = Math.min(lists.length, len+8)
 		console.log("loadsize: " + loadsize);
 		$.refresh_gallery(len, loadsize);
 	});
