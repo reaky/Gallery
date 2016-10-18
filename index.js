@@ -2,6 +2,7 @@ var lists=[], items=[];
 var starthnum = Math.ceil($(window).height()/206);
 var startvnum = Math.floor($(window).width()/206);
 var loadsize = 0;
+var siteurl = "//7xrst7.com1.z0.glb.clouddn.com/";
 console.log(startvnum+'/'+starthnum);
 
 function baseName(str) {
@@ -70,11 +71,11 @@ $(document).ready(function(){
 	$.refresh_gallery = function(start, end) {
 		for (var i = start; i < end; i++) { 
 			items.push({
-				src: '//7xrst7.com1.z0.glb.clouddn.com/'+lists[i][0], 
+				src: siteurl+lists[i][0], 
 				w: lists[i][1],
 				h: lists[i][2]
 			});
-			$('<a id='+i+' href=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i][0])+'><img src=//7xrst7.com1.z0.glb.clouddn.com/'+encodeURIComponent(lists[i][0].split(".")[0]+'_thumb.'+lists[i][0].split(".")[1])+' alt='+lists[i][0]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
+			$('<a id='+i+' href='+siteurl+encodeURIComponent(lists[i][0])+'><img src='+siteurl+encodeURIComponent(lists[i][0].split(".")[0]+'_thumb.'+lists[i][0].split(".")[1])+' alt='+lists[i][0]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
 				var cur = parseInt($(this).attr('id'));
 				openPhotoSwipe(items, cur);
 				return false;
@@ -82,7 +83,7 @@ $(document).ready(function(){
 		}
 	};
 	$.ajax({
-		url: 'list.json',
+		url: siteurl+'list.json',
 		dataType: "json",
 		success: function (data) {
 			lists = data;
@@ -153,7 +154,7 @@ $(document).ready(function(){
 			console.log("Upload successful!");
 			setTimeout(function() {
 				$.ajax({
-					url: 'list.json',
+					url: siteurl+'list.json',
 					dataType: "json",
 					success: function (data) {
 						lists = data;
