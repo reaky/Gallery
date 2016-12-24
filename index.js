@@ -3,7 +3,7 @@ var starthnum = Math.ceil($(window).height()/206);
 var startvnum = Math.floor($(window).width()/206);
 var loadsize = 0;
 var siteurl = "//7xrst7.com1.z0.glb.clouddn.com/";
-console.log(startvnum+'/'+starthnum);
+var d = new Date()
 
 function baseName(str) {
     var base;
@@ -68,6 +68,7 @@ var openPhotoSwipe = function(items, pid) {
 };
 
 $(document).ready(function(){
+	var d = new Date()
 	$.refresh_gallery = function(start, end) {
 		for (var i = start; i < end; i++) { 
 			items.push({
@@ -83,18 +84,18 @@ $(document).ready(function(){
 		}
 	};
 	$.ajax({
-		url: siteurl+'list.json',
+		url: siteurl+'list.json?v='+d.getTime(),
 		dataType: "json",
 		success: function (data) {
 			lists = data;
-			console.log("load list.json finished: "+lists.length);
+			console.log("load list.json?v="+d.getTime()+" finished: "+lists.length);
 			loadsize = Math.min(lists.length, starthnum*startvnum);
 			console.log("loadsize: " + loadsize);
 			$("#Reaky-Gallery").empty();
 			$.refresh_gallery(0, loadsize);
 		},
 		error: function (err) {
-			console.log("load list.json failed");
+			console.log("load list.json?v="+d.getTime()+" failed");
 			console.log(err);
 		}
 	});
@@ -123,7 +124,7 @@ $(document).ready(function(){
 	$("#Header").click(function(){
 		lists.reverse();
 		items = [];
-		console.log("list.json reversed: "+lists.length);
+		console.log("list.json?v="+d.getTime()+" reversed: "+lists.length);
 		loadsize = Math.min(lists.length, starthnum*startvnum)
 		console.log("loadsize: " + loadsize);
 		$("#Reaky-Gallery").empty()
@@ -153,13 +154,14 @@ $(document).ready(function(){
 		'onUploadComplete': function(file, data) {
 			console.log("Upload successful!");
 			setTimeout(function() {
+				var d = new Date()
 				$.ajax({
-					url: siteurl+'list.json',
+					url: siteurl+'list.json?v='+d.getTime(),
 					dataType: "json",
 					success: function (data) {
 						lists = data;
 						items = [];
-						console.log("reload list.json finished: "+lists.length);
+						console.log("reload list.json?v="+d.getTime()+" finished: "+lists.length);
 						loadsize = Math.min(lists.length, starthnum*startvnum);
 						console.log("loadsize: " + loadsize);
 						$("#Reaky-Gallery").empty();
