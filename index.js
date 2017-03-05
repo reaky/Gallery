@@ -13,6 +13,29 @@ function baseName(str) {
 }
 //console.log(baseName('IMG_sdf.jpg'));
 
+var photoswipeParseHash = function() {
+	var hash = window.location.hash.substring(1),
+		params = {};
+	if(hash.length < 5) { // pid=1
+		return params;
+	}
+	var vars = hash.split('&');
+	for (var i = 0; i < vars.length; i++) {
+		if(!vars[i]) {
+			continue;
+		}
+		var pair = vars[i].split('=');  
+		if(pair.length < 2) {
+			continue;
+		}           
+		params[pair[0]] = pair[1];
+	}
+	if(params.gid) {
+		params.gid = parseInt(params.gid, 10);
+	}
+	return params;
+};
+
 var openPhotoSwipe = function(items, pid) {
 	var pswpElement = document.querySelectorAll('.pswp')[0];
 
@@ -36,7 +59,7 @@ var openPhotoSwipe = function(items, pid) {
 	var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
 	gallery.listen('destroy', function() {
 		var cur = gallery.getCurrentIndex();
-		console.log('destroy: '+cur);
+		//console.log('destroy: '+cur);
 		//$.scrollTo('#'+gallery.getCurrentIndex());
 		//$.scrollTo('#'+cur,500);
 		$('#'+cur+' > img').animate({opacity: 0}, speed="normal");
@@ -49,17 +72,17 @@ var openPhotoSwipe = function(items, pid) {
 	gallery.listen('imageLoadComplete', function(index, item) { 
 		// index - index of a slide that was loaded
 		// item - slide object
-		console.log("imageLoadComplete: "+index);
+		//console.log("imageLoadComplete: "+index);
 	});
 	gallery.listen('gettingData', function(index, item) {
 		// index - index of a slide that was loaded
 		// item - slide object
-		console.log("gettingData: "+index);
+		//console.log("gettingData: "+index);
 	});
 	gallery.listen('beforeChange', function() {
 		var cur = gallery.getCurrentIndex();
 		var len = $("#Reaky-Gallery").children().length;
-		console.log(cur+"/"+len);
+		//console.log(cur+"/"+len);
 		if(cur > len-2) {
 			$("#loadmore").trigger("click");
 		}
@@ -78,6 +101,7 @@ $(document).ready(function(){
 			});
 			$('<a id='+i+' href='+siteurl+encodeURIComponent(lists[i][0])+'><img src='+siteurl+encodeURIComponent(lists[i][0].split(".")[0]+'_thumb.'+lists[i][0].split(".")[1])+' alt='+lists[i][0]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
 				var cur = parseInt($(this).attr('id'));
+				console.log(cur);
 				openPhotoSwipe(items, cur);
 				return false;
 			});
@@ -92,7 +116,19 @@ $(document).ready(function(){
 			loadsize = Math.min(lists.length, starthnum*startvnum);
 			console.log("loadsize: " + loadsize);
 			$("#Reaky-Gallery").empty();
-			$.refresh_gallery(0, loadsize);
+
+			var hashData = photoswipeParseHash();
+			if(hashData.pid && hashData.gid) {
+				if(hashData.pid > loadsize) {
+					loadsize = hashData.pid;
+				}
+				$.refresh_gallery(0, loadsize);
+				openPhotoSwipe(items, hashData.pid);
+			}
+			else {
+				$.refresh_gallery(0, loadsize);
+				openPhotoSwipe(items, 0);
+			}
 		},
 		error: function (err) {
 			console.log("load list.json?v="+d.getTime()+" failed");
