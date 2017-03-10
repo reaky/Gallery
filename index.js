@@ -1,97 +1,95 @@
-var lists=[], items=[];
-var starthnum = Math.ceil($(window).height()/206);
-var startvnum = Math.floor($(window).width()/206);
-var loadsize = 0;
-var siteurl = "//7xrst7.com1.z0.glb.clouddn.com/";
-var d = new Date()
-
-function baseName(str) {
-    var base;
-    if(str.lastIndexOf(".") != -1)       
-        base = str.substring(0, str.lastIndexOf("."));
-    return base;
-}
-//console.log(baseName('IMG_sdf.jpg'));
-
-var photoswipeParseHash = function() {
-	var hash = window.location.hash.substring(1),
-		params = {};
-	if(hash.length < 5) { // pid=1
-		return params;
-	}
-	var vars = hash.split('&');
-	for (var i = 0; i < vars.length; i++) {
-		if(!vars[i]) {
-			continue;
-		}
-		var pair = vars[i].split('=');  
-		if(pair.length < 2) {
-			continue;
-		}           
-		params[pair[0]] = pair[1];
-	}
-	if(params.gid) {
-		params.gid = parseInt(params.gid, 10);
-	}
-	return params;
-};
-
-var openPhotoSwipe = function(items, pid) {
-	var pswpElement = document.querySelectorAll('.pswp')[0];
-
-	items = arguments[0];
-	pid = arguments[1] || 0;
-	// define options (if needed)
-	var options = {
-		index: pid,
-		history: true,
-		loop: false,
-		focus: true,
-		bgOpacity: 0.85,
-		mainClass: 'pswp--minimal--dark',
-		barsSize: {top:0,bottom:0},
-		tapToClose: true,
-		tapToToggleControls: false,
-		captionEl: false,
-		fullscreenEl: true,
-		shareEl: false
-	};
-	var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
-	gallery.listen('destroy', function() {
-		var cur = gallery.getCurrentIndex();
-		//console.log('destroy: '+cur);
-		//$.scrollTo('#'+gallery.getCurrentIndex());
-		//$.scrollTo('#'+cur,500);
-		$('#'+cur+' > img').animate({opacity: 0}, speed="normal");
-		$('#'+cur+' > img').animate({opacity: 1}, speed="fast");
-		$('#'+cur+' > img').animate({opacity: 0}, speed="normal");
-		$('#'+cur+' > img').animate({opacity: 1}, speed="fast");
-		$('#'+cur+' > img').animate({opacity: 0}, speed="normal");
-		$('#'+cur+' > img').animate({opacity: 1}, speed="fast");
-	});
-	gallery.listen('imageLoadComplete', function(index, item) { 
-		// index - index of a slide that was loaded
-		// item - slide object
-		//console.log("imageLoadComplete: "+index);
-	});
-	gallery.listen('gettingData', function(index, item) {
-		// index - index of a slide that was loaded
-		// item - slide object
-		//console.log("gettingData: "+index);
-	});
-	gallery.listen('beforeChange', function() {
-		var cur = gallery.getCurrentIndex();
-		var len = $("#Reaky-Gallery").children().length;
-		//console.log(cur+"/"+len);
-		if(cur > len-2) {
-			$("#loadmore").trigger("click");
-		}
-	});
-	gallery.init();
-};
-
 $(document).ready(function(){
-	var d = new Date()
+	var lists=[], items=[];
+	var starthnum = Math.ceil($(window).height()/206);
+	var startvnum = Math.floor($(window).width()/206);
+	var loadsize = 0;
+	var siteurl = "//7xrst7.com1.z0.glb.clouddn.com/";
+
+	function baseName(str) {
+	    var base;
+	    if(str.lastIndexOf(".") != -1)       
+		base = str.substring(0, str.lastIndexOf("."));
+	    return base;
+	}
+	//console.log(baseName('IMG_sdf.jpg'));
+
+	var photoswipeParseHash = function() {
+		var hash = window.location.hash.substring(1),
+			params = {};
+		if(hash.length < 5) { // pid=1
+			return params;
+		}
+		var vars = hash.split('&');
+		for (var i = 0; i < vars.length; i++) {
+			if(!vars[i]) {
+				continue;
+			}
+			var pair = vars[i].split('=');  
+			if(pair.length < 2) {
+				continue;
+			}           
+			params[pair[0]] = pair[1];
+		}
+		if(params.gid) {
+			params.gid = parseInt(params.gid, 10);
+		}
+		return params;
+	};
+
+	var openPhotoSwipe = function(items, pid) {
+		var pswpElement = document.querySelectorAll('.pswp')[0];
+
+		items = arguments[0];
+		pid = arguments[1] || 0;
+		// define options (if needed)
+		var options = {
+			index: pid,
+			history: true,
+			loop: false,
+			focus: true,
+			bgOpacity: 0.85,
+			mainClass: 'pswp--minimal--dark',
+			barsSize: {top:0,bottom:0},
+			tapToClose: true,
+			tapToToggleControls: false,
+			captionEl: false,
+			fullscreenEl: true,
+			shareEl: false
+		};
+		var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+		gallery.listen('destroy', function() {
+			var cur = gallery.getCurrentIndex();
+			//console.log('destroy: '+cur);
+			//$.scrollTo('#'+gallery.getCurrentIndex());
+			//$.scrollTo('#'+cur,500);
+			$('#'+cur+' > img').animate({opacity: 0}, speed="normal");
+			$('#'+cur+' > img').animate({opacity: 1}, speed="fast");
+			$('#'+cur+' > img').animate({opacity: 0}, speed="normal");
+			$('#'+cur+' > img').animate({opacity: 1}, speed="fast");
+			$('#'+cur+' > img').animate({opacity: 0}, speed="normal");
+			$('#'+cur+' > img').animate({opacity: 1}, speed="fast");
+		});
+		gallery.listen('imageLoadComplete', function(index, item) { 
+			// index - index of a slide that was loaded
+			// item - slide object
+			//console.log("imageLoadComplete: "+index);
+		});
+		gallery.listen('gettingData', function(index, item) {
+			// index - index of a slide that was loaded
+			// item - slide object
+			//console.log("gettingData: "+index);
+		});
+		gallery.listen('beforeChange', function() {
+			var cur = gallery.getCurrentIndex();
+			var len = $("#Reaky-Gallery").children().length;
+			//console.log(cur+"/"+len);
+			if(cur > len-2) {
+				$("#loadmore").trigger("click");
+			}
+		});
+		gallery.init();
+	};
+
 	$.refresh_gallery = function(start, end) {
 		for (var i = start; i < end; i++) { 
 			items.push({
@@ -107,12 +105,14 @@ $(document).ready(function(){
 			});
 		}
 	};
+	var dt = new Date();
 	$.ajax({
-		url: siteurl+'list.json?v='+d.getTime(),
+		url: siteurl+'list.json?v='+dt.getTime(),
 		dataType: "json",
 		success: function (data) {
+			//var d = new Date()
 			lists = data;
-			console.log("load list.json?v="+d.getTime()+" finished: "+lists.length);
+			console.log("load list.json?v="+dt.getTime()+" finished: "+lists.length);
 			loadsize = Math.min(lists.length, starthnum*startvnum);
 			console.log("loadsize: " + loadsize);
 			$("#Reaky-Gallery").empty();
@@ -131,7 +131,7 @@ $(document).ready(function(){
 			}
 		},
 		error: function (err) {
-			console.log("load list.json?v="+d.getTime()+" failed");
+			console.log("load list.json?v="+dt.getTime()+" failed");
 			console.log(err);
 		}
 	});
@@ -158,9 +158,10 @@ $(document).ready(function(){
 		}
 	});
 	$("#Header").click(function(){
+		dt = new Date();
 		lists.reverse();
 		items = [];
-		console.log("list.json?v="+d.getTime()+" reversed: "+lists.length);
+		console.log("list.json?v="+dt.getTime()+" reversed: "+lists.length);
 		loadsize = Math.min(lists.length, starthnum*startvnum)
 		console.log("loadsize: " + loadsize);
 		$("#Reaky-Gallery").empty()
@@ -190,14 +191,14 @@ $(document).ready(function(){
 		'onUploadComplete': function(file, data) {
 			console.log("Upload successful!");
 			setTimeout(function() {
-				var d = new Date()
+				var dt = new Date();
 				$.ajax({
-					url: siteurl+'list.json?v='+d.getTime(),
+					url: siteurl+'list.json?v='+dt.getTime(),
 					dataType: "json",
 					success: function (data) {
 						lists = data;
 						items = [];
-						console.log("reload list.json?v="+d.getTime()+" finished: "+lists.length);
+						console.log("reload list.json?v="+dt.getTime()+" finished: "+lists.length);
 						loadsize = Math.min(lists.length, starthnum*startvnum);
 						console.log("loadsize: " + loadsize);
 						$("#Reaky-Gallery").empty();
