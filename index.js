@@ -99,7 +99,7 @@ $(document).ready(function(){
 			});
 			$('<a id='+i+' href='+siteurl+encodeURIComponent(lists[i][0])+'><img src='+siteurl+encodeURIComponent(lists[i][0].split(".")[0]+'_thumb.'+lists[i][0].split(".")[1])+' alt='+lists[i][0]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
 				var cur = parseInt($(this).attr('id'));
-				console.log(cur);
+				//console.log(cur);
 				openPhotoSwipe(items, cur);
 				return false;
 			});
@@ -178,6 +178,13 @@ $(document).ready(function(){
 			console.log("scrolled to end!");
 			$("#loadmore").trigger("click");
 		}
+		var i = Math.floor($(document).scrollTop()/206*4);
+		$('#Tooltip').html($('#Reaky-Gallery a').eq(i).children().attr('alt').substring(4,12));
+		$('#Tooltip').css('top',$(document).scrollTop()/($(document).height()-$(window).height())*($(window).height()-20));
+		$('#Tooltip').css('opacity', 1);
+		$('#Tooltip').css('display', 'block');
+		$('#Tooltip').stop().delay(500);
+		$('#Tooltip').fadeOut('slow');
 	});
 	$('#upload').uploadifive({
 		'auto' : true,
