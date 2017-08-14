@@ -72,12 +72,25 @@ $(document).ready(function(){
 		gallery.listen('imageLoadComplete', function(index, item) { 
 			// index - index of a slide that was loaded
 			// item - slide object
-			//console.log("imageLoadComplete: "+index);
+			console.log("imageLoadComplete: "+index);
+			//lists[index][1]=10;
+			//lists[index][2]=10;
+			//item["w"]=10;
+			//item["h"]=10;
+			//console.log(item["w"]);
+			//console.log(items[index]);
 		});
 		gallery.listen('gettingData', function(index, item) {
 			// index - index of a slide that was loaded
 			// item - slide object
-			//console.log("gettingData: "+index);
+			console.log("gettingData: "+index);
+			//console.log("W/L:"+lists[index][1]);
+			//lists[index][1]=10;
+			//lists[index][2]=10;
+			//item["w"]=10;
+			//item["h"]=10;
+			//console.log(item["w"]);
+			//console.log(items[index]);
 		});
 		gallery.listen('beforeChange', function() {
 			var cur = gallery.getCurrentIndex();
@@ -97,7 +110,22 @@ $(document).ready(function(){
 				w: lists[i][1],
 				h: lists[i][2]
 			});
-			$('<a id='+i+' href='+siteurl+encodeURIComponent(lists[i][0])+'><img src='+siteurl+encodeURIComponent(lists[i][0].split(".")[0]+'_thumb.'+lists[i][0].split(".")[1])+' alt='+lists[i][0]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
+			$.ajax({
+				url: siteurl+encodeURIComponent(lists[i][0])+'?imageInfo',
+				dataType: "json",
+				success: function (data) {
+					//items[i]["w"]=data["width"]
+					//items[i]["h"]=data["height"]
+					//console.log('w/h update'+items[i]["w"]+':'+items[i]["h"])
+				},
+				error: function (err) {
+					console.log("get picture size failed");
+					console.log(err);
+				}
+			});
+
+
+			$('<a id='+i+' href='+siteurl+encodeURIComponent(lists[i][0])+'><img src='+siteurl+encodeURIComponent(lists[i][0])+'?imageView2/1/w/200/h/200 alt='+lists[i][0]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
 				var cur = parseInt($(this).attr('id'));
 				//console.log(cur);
 				openPhotoSwipe(items, cur);
