@@ -109,12 +109,12 @@ $(document).ready(function(){
 	$.refresh_gallery = function(start, end) {
 		for (var i = start; i < end; i++) { 
 			items.push({
-				src: siteurl+lists[i][0], 
+				src: siteurl+lists[i], 
 				w: 0,
 				h: 0
 			});
 
-			$('<a id='+i+' href='+siteurl+encodeURIComponent(lists[i][0])+'><img src='+siteurl+encodeURIComponent(lists[i][0])+'?imageView2/1/w/200/h/200 alt='+lists[i][0]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
+			$('<a id='+i+' href='+siteurl+encodeURIComponent(lists[i])+'><img src='+siteurl+encodeURIComponent(lists[i])+'?imageView2/1/w/200/h/200 alt='+lists[i]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
 				var cur = parseInt($(this).attr('id'));
 				//console.log(cur);
 				openPhotoSwipe(items, cur);
