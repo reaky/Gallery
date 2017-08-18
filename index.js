@@ -197,7 +197,6 @@ $(document).ready(function(){
 		}
 		var i = Math.floor($(document).scrollTop()/206*4);
 		$('#Tooltip').html($('#Reaky-Gallery a').eq(i).children().attr('alt').substring(4,12));
-		$('#Tooltip').css('top',$(document).scrollTop()/($(document).height()-$(window).height())*($(window).height()-20));
 		$('#Tooltip').css('opacity', 1);
 		$('#Tooltip').css('display', 'block');
 		$('#Tooltip').stop().delay(500);

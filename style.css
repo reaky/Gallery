@@ -82,6 +82,7 @@ body {
 }
 #Tooltip {
 	position: fixed;
-	right: 10px;
+	right: 160px;
+	top: 6px;
 	opacity: 0;
 }
