@@ -54,6 +54,7 @@ $(document).ready(function(){
 			tapToToggleControls: false,
 			captionEl: false,
 			fullscreenEl: true,
+			deleteEl: true,
 			shareEl: false
 		};
 		var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);

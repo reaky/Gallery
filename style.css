@@ -86,3 +86,7 @@ body {
 	top: 6px;
 	opacity: 0;
 }
+.pswp__button--delete {
+    background: url(like.png) 0 0 no-repeat;
+    background-size: 44px 44px;
+}
