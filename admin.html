@@ -5,7 +5,7 @@
 <title>Reaky Family Gallery</title>
 <link rel="shortcut icon" href="//7xrst7.com1.z0.glb.clouddn.com/favicon.ico">
 <link rel="apple-touch-icon" href="//7xrst7.com1.z0.glb.clouddn.com/favicon.ico">
-<link rel="stylesheet" type="text/css" href="//7xrst7.com1.z0.glb.clouddn.com/style.css">
+<link rel="stylesheet" type="text/css" href="style.css">
 <link rel="stylesheet" type="text/css" href="//7xrst7.com1.z0.glb.clouddn.com/uploadifive.css">
 <!-- Core CSS file -->
 <link rel="stylesheet" type="text/css" href="//7xrst7.com1.z0.glb.clouddn.com/photoswipe.css">
@@ -18,14 +18,13 @@
 
 </head>
 <body>
-<div id="Header">Reaky's Family Gallery</div>
+<div id="Header">Reaky's Family Gallery - Admin</div>
 <div id="upload-div">
-    <form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="upload" id="upload" multiple />
-        <div id="queue"></div>
-    </form>
+	<form id="upload-form" action="/upload" method="post" enctype="multipart/form-data">
+	<input type="file" name="upload" id="upload" multiple />
+	<div id="queue"></div>
+	</form>
 </div>
-
 <div id="Tooltip">Page1_20170101</div>
 <div id="Wrapper">
 <div id="Reaky-Gallery"></div>
@@ -53,7 +52,6 @@
                 <button class="pswp__button pswp__button--share" title="Share"></button>
                 <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
                 <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-                <button class="pswp__button pswp__button--delete" title="Delete"></button>
                 <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
                 <!-- element will get class pswp__preloader--active when preloader is running -->
                 <div class="pswp__preloader">
@@ -80,12 +78,38 @@
 <!-- Core JS file -->
 <script type="text/javascript" src="//7xrst7.com1.z0.glb.clouddn.com/photoswipe.min.js"></script> 
 <!-- UI JS file -->
-<script type="text/javascript" src="//7xrst7.com1.z0.glb.clouddn.com/photoswipe-ui-default-withdelete.js"></script> 
+<script type="text/javascript" src="//7xrst7.com1.z0.glb.clouddn.com/photoswipe-ui-default.min.js"></script> 
 <!--
 <script src="//lib.sinaapp.com/js/jquery/3.1.0/jquery-3.1.0.min.js"></script>
 -->
 <script type="text/javascript" src="//7xrst7.com1.z0.glb.clouddn.com/jquery-3.1.0.min.js"></script>
 <script type="text/javascript" src="//7xrst7.com1.z0.glb.clouddn.com/jquery.uploadifive.min.js"></script>
-<script type="text/javascript" src="//7xrst7.com1.z0.glb.clouddn.com/index.js?1115"></script>
+<script type="text/javascript" src="//7xrst7.com1.z0.glb.clouddn.com/index.js?0925"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+$('#upload').unbind();
+$('#upload').dblclick(function(){
+$('#Reaky-Gallery > a').unbind();
+$('#Reaky-Gallery > a').click(function(e){
+	var cur = parseInt($(this).attr('id'));
+	console.log("delete:"+cur);
+	var name = $(this).attr('href').split('/')[3];
+	alert(name);
+	$.ajax({
+		url: 'http://reaky.tk/delete/'+name,
+		success: function (data) {
+			console.log('delete successful');
+			$(this).remove();
+			alert('delete successful');
+		},
+		error: function (err) {
+			console.log("delete failed");
+			console.log(err);
+		}
+	});
+});
+});
+});
+</script>
 </body>
 </html>
