@@ -3,7 +3,7 @@ $(document).ready(function(){
 	var starthnum = Math.ceil($(window).height()/206);
 	var startvnum = Math.floor($(window).width()/206);
 	var loadsize = 0;
-	var siteurl = "//reaky.top/";
+	var siteurl = "//7xrst7.com1.z0.glb.clouddn.com/";
 
 	function baseName(str) {
 	    var base;
@@ -54,7 +54,6 @@ $(document).ready(function(){
 			tapToToggleControls: false,
 			captionEl: false,
 			fullscreenEl: true,
-			deleteEl: true,
 			shareEl: false
 		};
 		var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
@@ -83,8 +82,7 @@ $(document).ready(function(){
 				return
 			}
 			$.ajax({
-				//url: item["src"]+'?imageInfo',
-				url: item["src"].replace(/photo/, 'imageInfo'),
+				url: item["src"]+'?imageInfo',
 				dataType: "json",
 				success: function (data) {
 					console.log('gettingSize:'+index+' '+item["src"]);
@@ -113,14 +111,12 @@ $(document).ready(function(){
 	$.refresh_gallery = function(start, end) {
 		for (var i = start; i < end; i++) { 
 			items.push({
-				//src: siteurl+lists[i],
-				src: mediaurl+'photo/'+lists[i], 
+				src: siteurl+lists[i], 
 				w: 0,
 				h: 0
 			});
 
-			$('<a id='+i+' href='+siteurl+'photo/'+encodeURIComponent(lists[i])+'><img src='+siteurl+'thumb/'+encodeURIComponent(lists[i])+' alt='+lists[i]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
-			//$('<a id='+i+' href='+siteurl+encodeURIComponent(lists[i])+'><img src='+siteurl+encodeURIComponent(lists[i])+'?imageView2/1/w/200/h/200 alt='+lists[i]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
+			$('<a id='+i+' href='+siteurl+encodeURIComponent(lists[i])+'><img src='+siteurl+encodeURIComponent(lists[i])+'?imageView2/1/w/200/h/200 alt='+lists[i]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
 				var cur = parseInt($(this).attr('id'));
 				console.log("cur:"+cur);
 				openPhotoSwipe(items, cur);
@@ -128,6 +124,29 @@ $(document).ready(function(){
 			});
 		}
 	};
+	$.load_list = function(marker) {
+		$.ajax({
+			method: 'POST',
+			url: '//rsf.qbox.me/list?bucket=reaky&prefix=IMG&callback=tt',
+			dataType: 'jsonp',
+			crossDomain: 'true',
+			headers: {
+				'Access-Control-Allow-Origin': '*',
+				//'Host': 'rsf.qbox.me',
+				'Content-Type': 'application/x-www-form-urlencoded',
+				'Authorization': 'QBox bb59XAvY0gc3PdegqEgllJHqJ5oUXfz-RE5j346L:VvjewlkKAfuxGuhmvjsXORiMkpk='
+			},
+			success: function (data) {
+				console.log('load data from POST ok!');
+				lists = data;
+			},
+			error: function (err) {
+				console.log("load data from POST failed");
+				console.log(err);
+			}
+		});
+	};
+	$.load_list(0);
 	var dt = new Date();
 	$.ajax({
 		url: siteurl+'list.json?v='+dt.getTime(),
@@ -215,7 +234,7 @@ $(document).ready(function(){
 		'removeCompleted': true,
 		'queueID': 'queue',
 		'buttonText': 'Upload',
-		'uploadScript' : siteurl+'upload',
+		'uploadScript' : '/upload',
 		//'onUploadComplete': function(file, data) { console.log('Feedback: '+data); }
 		'onUploadComplete': function(file, data) {
 			console.log("Upload successful!");
