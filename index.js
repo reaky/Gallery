@@ -83,14 +83,13 @@ $(document).ready(function(){
 				return
 			}
 			$.ajax({
-				//url: item["src"]+'?imageInfo',
 				url: item["src"].replace(/photo/, 'imageInfo'),
 				dataType: "json",
 				success: function (data) {
 					console.log('gettingSize:'+index+' '+item["src"]);
-					console.log('gettingSize:'+index+' '+data["width"]+':'+data["height"]);
-					item["w"]=data["width"]
-					item["h"]=data["height"]
+					console.log('gettingSize:'+index+' '+data["msg"]["width"]+':'+data["msg"]["height"]);
+					item["w"]=data["msg"]["width"]
+					item["h"]=data["msg"]["height"]
 					gallery.updateSize();
 				},
 				error: function (err) {
@@ -113,14 +112,12 @@ $(document).ready(function(){
 	$.refresh_gallery = function(start, end) {
 		for (var i = start; i < end; i++) { 
 			items.push({
-				//src: siteurl+lists[i],
-				src: mediaurl+'photo/'+lists[i], 
+				src: siteurl+'photo/'+lists[i], 
 				w: 0,
 				h: 0
 			});
 
 			$('<a id='+i+' href='+siteurl+'photo/'+encodeURIComponent(lists[i])+'><img src='+siteurl+'thumb/'+encodeURIComponent(lists[i])+' alt='+lists[i]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
-			//$('<a id='+i+' href='+siteurl+encodeURIComponent(lists[i])+'><img src='+siteurl+encodeURIComponent(lists[i])+'?imageView2/1/w/200/h/200 alt='+lists[i]+' /></a>').appendTo("#Reaky-Gallery").click(function(e){
 				var cur = parseInt($(this).attr('id'));
 				console.log("cur:"+cur);
 				openPhotoSwipe(items, cur);
