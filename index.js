@@ -130,7 +130,7 @@ $(document).ready(function(){
 	};
 	var dt = new Date();
 	$.ajax({
-		url: siteurl+'list.json?v='+dt.getTime(),
+		url: siteurl+'static/list.json?v='+dt.getTime(),
 		dataType: "json",
 		success: function (data) {
 			//var d = new Date()
@@ -222,7 +222,7 @@ $(document).ready(function(){
 			setTimeout(function() {
 				var dt = new Date();
 				$.ajax({
-					url: siteurl+'list.json?v='+dt.getTime(),
+					url: siteurl+'static/list.json?v='+dt.getTime(),
 					dataType: "json",
 					success: function (data) {
 						lists = data;
